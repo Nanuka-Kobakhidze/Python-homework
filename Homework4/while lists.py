@@ -22,15 +22,15 @@ responses = {}
 polling_active = True
 
 while polling_active:
-    vacation = input('\nIf you could visit one place in the world, where would you go? ')
-    age = input('\nHow old are you?')
-    responses[age] = vacation
+    answer = input('\nIf you could visit one place in the world, where would you go? ')
+    name = input('\nWhat is your name? ')
+    responses[name] = answer
 
     repeat = input('Would you like the other person to respond? (Yes/No)')
     if repeat != "yes":
         polling_active = False
 
 print("\n--- Poll Results ---")
-for age, vacation in responses.items():
-    print(f"{age} would like to visit {vacation}.")
+for name, vacation in responses.items():
+    print(f"{name} would like to visit {vacation}.")
 ##
