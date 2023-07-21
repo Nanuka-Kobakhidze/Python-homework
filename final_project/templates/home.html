@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+Hi {{ user.username }}!
+<p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+<p>You are not logged in</p>
+<a href="{% url 'login' %}">Log In</a> |
+<a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
+<div class="new-post-form">
+    <h2>Create a New Post</h2>
+    <form method="post" action="{% url 'post_create' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Post</button>
+    </form>
+</div>
+{% for post in post_list %}
+<div class="post-entry">
+    <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+    <p>{{ post.body }}</p>
+    <!-- Display tags for the current post -->
+    {% if post.tags.all %}
+    <p>Tags:
+        {% for tag in post.tags.all %}
+        <span class="tag">{{ tag.name }}</span>
+        {% endfor %}
+    </p>
+    {% endif %}
+    <!-- Display comments for the current post -->
+    {% for comment in post.comment_set.all %}
+    <div class="comment">
+        <p>{{ comment.comment }}</p>
+        <p>By: {{ comment.author }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+
+{% endblock content %}
