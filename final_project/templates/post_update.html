@@ -19,6 +19,10 @@
     {{ form.tags }}
     <br>
 
+    <label for="{{ form.categories.id_for_label }}">Categories:</label>
+    {{ form.categories }}
+    <br>
+
     <button type="submit">Update Post</button>
 </form>
 {% endblock content %}
